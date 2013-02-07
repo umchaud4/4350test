@@ -1,5 +1,5 @@
 from sqlalchemy import Column, Integer, String
-from lumberjack.database import Base
+from lumberjack.database import Base, db_session
 
 class User(Base):
     __tablename__ = 'users'
@@ -30,11 +30,32 @@ class User(Base):
 
     @staticmethod
     def find_by_user_name(username):
-        return (User.query.filter(User.user_name == user_name).first())
+        return (User.query.filter(User.user_name == username).first())
+
+    @staticmethod
+    def find_by_email(email):
+        return (User.query.filter(User.email == email).first())
 
     @staticmethod
     def all():
         return (User.query.all())
+
+    @staticmethod
+    def save_to_db(user):
+        db_session.add(user)
+        db_session.commit()
+
+    def is_authenticated(self):
+        return True
+
+    def is_active(self):
+        return True
+
+    def is_anonymouse(self):
+        return False
+
+    def get_id(self):
+        return unicode(self.user_id)
 
     def __repr__(self):
         return "<User id %d>" % self.user_id

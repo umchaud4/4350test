@@ -33,3 +33,8 @@ nosetests.xml
 .mr.developer.cfg
 .project
 .pydevproject
+
+venv/
+lumberjack/tmp/nonces/
+lumberjack/tmp/associations/
+lumberjack/tmp/temp/

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<title>Lumberjack</title>
+<link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='bootstrap/css/bootstrap.css') }}" />
+<div class="navbar">
+    <div class="navbar-inner">
+        <a class="brand" href="#">LumberJack</a>
+        <ul class="nav">
+            <li class="active"><a href="#">Me</a></li> <!-- TODO user -->
+            <li><a href="#">People</a></li>
+            <li><a href="#">Exercises</a></li>
+        </ul>
+        <ul class="nav pull-right">
+            {% if g.user.is_authenticated() == True %}
+            <li><a href='#'>Hello, {{g.user.user_name}}</a></li>
+            {% else %}
+                <li>
+                <a href={{ url_for('login') }}>
+                    Login
+                </a>
+                </li>
+            {% endif %}
+        </ul>
+    </div>
+</div>
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+<ul>
+    {% for message in messages %}
+    <li>{{ message }} </li>
+    {% endfor %}
+</ul>
+{% endif %}
+{% endwith %}
+
+{% block body %}{% endblock %}

@@ -12,3 +12,7 @@ Base.query = db_session.query_property()
 def init_db():
     from models import *
     Base.metadata.create_all(bind=engine)
+
+def destroy_db():
+    from models import *
+    Base.metadata.drop_all(bind=engine)
